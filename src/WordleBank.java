@@ -6,7 +6,7 @@ import java.util.*;
 import java.io.*;
 import java.util.Scanner;
 
-public class finalTest {
+public class WordleBank {
     boolean listCheck = false;
     boolean yellowFlag = false;
     boolean found = false;
@@ -24,8 +24,8 @@ public class finalTest {
     int showListSize;
 
     public static void main(String[] args) throws IOException {
-        finalTest guess = new finalTest();
-        finalTest algo = new finalTest();
+        WordleBank guess = new WordleBank();
+        WordleBank algo = new WordleBank();
         algo.updatedWordOfDay();
         algo.Start();
         String inputWord1 = guess.usersWord();
@@ -261,7 +261,6 @@ public class finalTest {
 
     public void greyFileBank() throws IOException {
         Scanner reader = new Scanner(new File("FiveLetterWords.txt"));
-        PrintWriter writer = new PrintWriter("userWordBank.txt");
         for (int z = 0; reader.hasNext(); z++) {
             found = false;
             String greyWord = reader.nextLine();
@@ -273,13 +272,11 @@ public class finalTest {
             if (!found) {
                 wordBank.add(greyWord);
             }
-            writer.close();
         }
     }
 
     void yellowFileBank() throws IOException {
         Scanner reader = new Scanner(new File("FiveLetterWords.txt"));
-        PrintWriter writer = new PrintWriter("userWordBank.txt");
         for (int z = 0; reader.hasNext(); z++) {
             found = false;
             String greyWord = reader.nextLine();
@@ -291,7 +288,6 @@ public class finalTest {
             if (!found) {
                 wordBank.add(greyWord);
             }
-            writer.close();
         }
     }
 
