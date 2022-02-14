@@ -135,8 +135,13 @@ public class WordleBank {
                 }
             }
         }
+        System.out.print("Green Letters: ");
+        System.out.println(green);
+        System.out.print("Yellow Letters: ");
+        System.out.println(yellow);
+        System.out.print("Grey Letters: ");
+        System.out.println(grey);
         for (Character chara : green) {
-            System.out.println(chara);
             for (Character chara2 : grey) {
                 if (chara.equals(chara2)) {
                     grey.remove(chara2);
@@ -145,12 +150,6 @@ public class WordleBank {
 
             }
         }
-        System.out.print("Green Letters: ");
-        System.out.println(green);
-        System.out.print("Yellow Letters: ");
-        System.out.println(yellow);
-        System.out.print("Grey Letters: ");
-        System.out.println(grey);
     }
 
     void reset() //resets the green/grey/yellow list for faster speeds and redundancy
