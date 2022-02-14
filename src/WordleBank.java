@@ -137,6 +137,10 @@ public class WordleBank {
         }
         System.out.print("Green Letters: ");
         System.out.println(green);
+                if (green.size() == 4)
+        {
+            System.out.println("That is the correct word);
+        }
         System.out.print("Yellow Letters: ");
         System.out.println(yellow);
         System.out.print("Grey Letters: ");
