@@ -75,9 +75,12 @@ public class WordleBank {
 
     public void cchar(String guessword) //seperates the user word vs word of day into green,yellow, and grey lists with strict guidlines
     {
-        if (guessword != wordOfDay) {
-            wordBank.remove(guessword);
-        }
+       if (wordOfDay.equals(guessword)) {
+           System.out.println("That must be the correct word");
+            System.exit(0);
+        } else {
+             wordBank.remove(guessword);
+                        }
         char replace = '$';
         char[] wordOfDayArray = wordOfDay.toCharArray();
         char[] guesswordArray = guessword.toCharArray();
@@ -97,6 +100,7 @@ public class WordleBank {
                     } else {
                         yellow.add(guesswordChar.charAt(j));
                         yellowParallel.add(i);
+                        System.out.println(yellow);
                     }
                 }
             }
@@ -114,12 +118,20 @@ public class WordleBank {
                 }
             }
         }
+        boolean onceCheck = false;
         for (Integer integer : greenParallel) {
+                        System.out.println(yellow);
             for (int b = 0; b < yellowParallel.size(); b++) {
                 if (Objects.equals(integer, yellowParallel.get(b))) {
                     yellowParallel.remove(b);
                     yellow.remove(b);
+                    onceCheck = true;
+                    break;
                 }
+            }
+            if(onceCheck = true)
+            {
+                break;
             }
         }
         for (Character character : green)
@@ -137,11 +149,6 @@ public class WordleBank {
         }
         System.out.print("Green Letters: ");
         System.out.println(green);
-                if (green.size() == 4)
-        {
-            System.out.println("That must be the correct word");
-            System.exit(0);
-        }
         System.out.print("Yellow Letters: ");
         System.out.println(yellow);
         System.out.print("Grey Letters: ");
