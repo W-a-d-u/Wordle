@@ -135,6 +135,16 @@ public class WordleBank {
                 }
             }
         }
+        for (Character chara : green) {
+            System.out.println(chara);
+            for (Character chara2 : grey) {
+                if (chara.equals(chara2)) {
+                    grey.remove(chara2);
+                    break;
+                }
+
+            }
+        }
         System.out.print("Green Letters: ");
         System.out.println(green);
         System.out.print("Yellow Letters: ");
