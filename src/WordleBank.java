@@ -8,15 +8,17 @@ import java.util.Scanner;
 
 public class WordleBank {
     boolean listCheck = false;
-    boolean yellowFlag = false;
     boolean found = false;
+    String guessword;
     String wordOfDay;
+    ArrayList<Character> totalChars = new ArrayList<>();
     ArrayList<String> wordBank = new ArrayList<>();
     ArrayList<Character> green = new ArrayList<>();
     ArrayList<Integer> greenParallel = new ArrayList<>();
     ArrayList<Character> yellow = new ArrayList<>();
     ArrayList<Integer> yellowParallel = new ArrayList<>();
     ArrayList<Character> grey = new ArrayList<>();
+    ArrayList<Character> ifFiveLetters = new ArrayList<>();
     int counter = 0;
     int counterList = 0;
     boolean counterBank = true;
@@ -30,27 +32,27 @@ public class WordleBank {
         algo.Start();
         String inputWord1 = guess.usersWord();
         algo.cchar(inputWord1);
-        algo.bank();
+        algo.bank(inputWord1);
         algo.reset();
         algo.listCheck();
         String inputWord2 = guess.usersWord();
         algo.cchar(inputWord2);
-        algo.bank();
+        algo.bank(inputWord2);
         algo.reset();
         algo.listCheck();
         String inputWord3 = guess.usersWord();
         algo.cchar(inputWord3);
-        algo.bank();
+        algo.bank(inputWord3);
         algo.reset();
         algo.listCheck();
         String inputWord4 = guess.usersWord();
         algo.cchar(inputWord4);
-        algo.bank();
+        algo.bank(inputWord4);
         algo.reset();
         algo.listCheck();
         String inputWord5 = guess.usersWord();
         algo.cchar(inputWord5);
-        algo.bank();
+        algo.bank(inputWord5);
         algo.reset();
         algo.listCheck();
     }
@@ -75,12 +77,12 @@ public class WordleBank {
 
     public void cchar(String guessword) //seperates the user word vs word of day into green,yellow, and grey lists with strict guidlines
     {
-       if (wordOfDay.equals(guessword)) {
-           System.out.println("That must be the correct word");
+        if (wordOfDay.equals(guessword)) {
+            System.out.println("It seems as if you have guessed the correct word!");
             System.exit(0);
         } else {
-             wordBank.remove(guessword);
-                        }
+            wordBank.remove(guessword);
+        }
         char replace = '$';
         char[] wordOfDayArray = wordOfDay.toCharArray();
         char[] guesswordArray = guessword.toCharArray();
@@ -96,31 +98,17 @@ public class WordleBank {
                         green.add(guesswordChar.charAt(j));
                         greenParallel.add(i);
                         guesswordChar.setCharAt(j, replace);
-
                     } else {
                         yellow.add(guesswordChar.charAt(j));
                         yellowParallel.add(i);
-                        System.out.println(yellow);
-                    }
-                }
-            }
-        }
-        for (int i = 0; i < yellow.size() - 1; i++) {
-            {
-                for (int z = 1; z < wordOfDay.length(); z++) {
-                    if (wordOfDay.charAt(i) == wordOfDay.charAt(z)) {
-                        if (z == i) {
-                            yellow.remove((i));
-                            yellowFlag = true;
-
-                        }
+                        continue;
                     }
                 }
             }
         }
         boolean onceCheck = false;
         for (Integer integer : greenParallel) {
-                        System.out.println(yellow);
+            System.out.println(yellow);
             for (int b = 0; b < yellowParallel.size(); b++) {
                 if (Objects.equals(integer, yellowParallel.get(b))) {
                     yellowParallel.remove(b);
@@ -153,13 +141,25 @@ public class WordleBank {
         System.out.println(yellow);
         System.out.print("Grey Letters: ");
         System.out.println(grey);
+        totalChars.addAll(green);
+        totalChars.addAll(yellow);
+        for(int z = 0;z<totalChars.size() - 1;z++)
+        {
+            for(int i = 1;i<totalChars.size();i++)
+            {
+                if(totalChars.get(z) == totalChars.get(i))
+                {
+                    totalChars.set(z,'$');
+                }
+            }
+        }
+        totalChars.removeAll(Collections.singleton('$'));
         for (Character chara : green) {
             for (Character chara2 : grey) {
                 if (chara.equals(chara2)) {
                     grey.remove(chara2);
                     break;
                 }
-
             }
         }
     }
@@ -175,37 +175,44 @@ public class WordleBank {
 
     void Start() //Prompts the user and takes an int that is used for listCheck()
     {
-
         System.out.println("Show list when __ words are left (add number):");
         showListSize = scan.nextInt();
+
     }
 
-    public void bank() throws IOException//Takes the green/yellow/grey lists and checks that against wordle word bank and removes the necessary words
+    public void bank(String guessword) throws IOException//Takes the green/yellow/grey lists and checks that against wordle word bank and removes the necessary words
     {
-        if (counterBank && yellowFlag) {
-            if (yellow.size() == 0) {
-                System.out.println("Tough to decipher on this word, add another one for a more narrow search");
-            } else {
-                yellowFileBank();
-                greenBank();
-                counterBank = false;
+        if(green.size() + yellow.size() == 5)
+        {
+            ifFiveLetters.addAll(green);
+            ifFiveLetters.addAll(yellow);
+            for(String word : wordBank)
+            {
+                for(char Char : ifFiveLetters)
+                {
+                    if(word.indexOf(Char) == -1) 
+                    {
+                        wordBank.remove(word);
+                    }
+                }
             }
-        } else if (yellowFlag) {
-            yellowBank();
-            greenBank();
-        } else if (counterBank) {
-            if (grey.size() > yellow.size()) {
+        }
+        if (counterBank) {
+            if (yellow.size() < grey.size()) {
                 greyFileBank();
+                wordBank.remove(guessword);
                 yellowBank();
                 greenBank();
                 counterBank = false;
             } else {
                 yellowFileBank();
+                wordBank.remove(guessword);
                 greyBank();
                 greenBank();
                 counterBank = false;
             }
         } else {
+            wordBank.remove(guessword);
             greyBank();
             yellowBank();
             greenBank();
@@ -236,7 +243,6 @@ public class WordleBank {
             } else {
                 System.exit(0);
             }
-
         }
     }
 
