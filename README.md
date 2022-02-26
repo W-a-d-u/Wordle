@@ -4,3 +4,5 @@ To run it, simply just download the one class file and the text file of all 5 le
 
 
 You could easily reuse the code to make a wordle solver where the user would input the green letters (and green locaton, which would be put into the green Parallel), the yellow letters, and grey and it should work if you remove the cchar method. 
+
+Has errors, wouldn't use right now
