@@ -87,6 +87,8 @@ public class WordleBank {
         } else {
             wordBank.remove(guessword);
         }
+        } else {
+            System.out.println("Good Luck!");
         }
         char replace = '$';
         char[] wordOfDayArray = wordOfDay.toCharArray();
