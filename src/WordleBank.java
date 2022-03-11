@@ -21,6 +21,7 @@ public class WordleBank {
     ArrayList<Character> ifFiveLetters = new ArrayList<>();
     int counter = 0;
     int counterList = 0;
+    int counterTwo = 0;
     boolean counterBank = true;
     Scanner scan = new Scanner(System.in);
     int showListSize;
@@ -77,11 +78,15 @@ public class WordleBank {
 
     public void cchar(String guessword) //seperates the user word vs word of day into green,yellow, and grey lists with strict guidlines
     {
+        counterTwo++;
+        if(counterTwo!=0)
+        {
         if (wordOfDay.equals(guessword)) {
             System.out.println("It seems as if you have guessed the correct word!");
             System.exit(0);
         } else {
             wordBank.remove(guessword);
+        }
         }
         char replace = '$';
         char[] wordOfDayArray = wordOfDay.toCharArray();
