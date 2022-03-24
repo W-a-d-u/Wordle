@@ -1,7 +1,3 @@
-//***BOTTOM OF PAGE HAS THE WORDLE WORDS DAYS IN ADVANCE, IT WILL SPOIL (IN updatedWordOfDay arrayList)***
-//Program is to just aid in wordle by inputting the words you typed into wordle, plugging them in here and outputting a list of words that it could be
-//Novice program so likely has errors or could be better optimised
-
 import java.util.*;
 import java.io.*;
 import java.util.Scanner;
